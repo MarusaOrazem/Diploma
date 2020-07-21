@@ -1,0 +1,468 @@
+\documentclass[mat1]{fmfdelo}
+% \documentclass[fin1]{fmfdelo}
+% \documentclass[isrm1]{fmfdelo}
+% \documentclass[mat2]{fmfdelo}
+% \documentclass[fin2]{fmfdelo}
+% \documentclass[isrm2]{fmfdelo}
+
+
+% naslednje ukaze ustrezno napolnite
+\avtor{Maruša Oražem}
+
+\naslov{Konstrukcija gibanja kamere s pomočjo Pitagorejskih krivulj}
+\title{Construction of camera motion with help of Pitagorean curves}
+
+% navedite ime mentorja s polnim nazivom: doc.~dr.~Ime Priimek,
+% izr.~prof.~dr.~Ime Priimek, prof.~dr.~Ime Priimek
+% uporabite le tisti ukaz/ukaze, ki je/so za vas ustrezni
+\mentor{izr. prof. dr. Marjetka Knez}
+% \mentorica{}
+% \somentor{}
+% \somentorica{}
+% \mentorja{}{}
+% \mentorici{}{}
+
+\letnica{2020} % leto diplome
+
+%  V povzetku na kratko opišite vsebinske rezultate dela. Sem ne sodi razlaga organizacije dela --
+%  v katerem poglavju/razdelku je kaj, pač pa le opis vsebine.
+\povzetek{}
+
+%  Prevod slovenskega povzetka v angleščino.
+\abstract{}
+
+% navedite vsaj eno klasifikacijsko oznako --
+% dostopne so na www.ams.org/mathscinet/msc/msc2010.html
+\klasifikacija{}
+\kljucnebesede{} % navedite nekaj ključnih pojmov, ki nastopajo v delu
+\keywords{} % angleški prevod ključnih besed
+
+\zapisiMetaPodatke  % poskrbi za metapodatke in veljaven PDF/A-1b standard
+
+% aktivirajte pakete, ki jih potrebujete
+% \usepackage{tikz}
+
+% za številske množice uporabite naslednje simbole
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\HH}{\mathbb H}
+\newcommand{\rr}{\boldsymbol r}
+\newcommand{\ii}{\boldsymbol i}
+\newcommand{\jj}{\boldsymbol j}
+\newcommand{\kk}{\boldsymbol k}
+\newcommand{\pp}{\boldsymbol p}
+\newcommand{\ba}{\boldsymbol A}
+\newcommand{\e}{\boldsymbol e}
+\newcommand{\A}{\mathcal A}
+
+% matematične operatorje deklarirajte kot take, da jih bo Latex pravilno stavil
+% \DeclareMathOperator{\conv}{conv}
+
+% vstavite svoje definicije ...
+%  \newcommand{}{}
+
+\begin{document}
+
+\section{Uvod}
+\section{Pojmi}
+
+\begin{definicija}
+Množica kvaternioniv $\HH$ je 4-razsežen vektorski prostor z bazo $\bf{1},\bf{i},\bf{j},\bf{k}$.
+\end{definicija}
+Za $h\in \HH$ pišemo: $h = a + b\mathbf{i} + c\mathbf{j} + d\mathbf{k}$ oziroma $h=(a,b,c,d)$, kjer so $a,b,c,d\in \R$.
+Poglejmo si osnovne operacije v množici $\HH$:\\
+Seštevanje:
+\begin{equation*}
+\begin{array}{c c c}
+h_1 = (a_1,b_1,c_1,d_1) \in \HH &  \rightarrow & h_1 + h_2 = (a_1+a_2,b_1+b_2,c_1+c_2,d_1+d_2) = \\
+h_2 = (a_2,b_2,c_2,d_2) \in \HH &  & (a_1+a_2) + (b_1+b_2)\mathbf{i} + (c_1+c_2)\mathbf{j} + (d_1+d_2)\mathbf{k}
+\end{array}
+\end{equation*}
+Skalarno množenje:
+\begin{equation*}
+\begin{array}{c c c}
+\lambda \in \R, h \in \R & \rightarrow & \lambda h = (\lambda a, \lambda b, \lambda c, \lambda d) =  \lambda a + \lambda b \mathbf{i} + \lambda c \mathbf{j} + \lambda d \mathbf{k}
+\end{array}
+\end{equation*}
+Konjugacija:
+\begin{equation*}
+\begin{array}{c c c}
+h \in \HH & \rightarrow &\overline{h} = (a,-b,-c,-d)= a-b\mathbf{i} - c\mathbf{j} - d\mathbf{k}
+\end{array}
+\end{equation*}
+Kvaternionsko množenje:\\
+$\text{Velja zveza:}~\mathbf{i}^2 = \mathbf{j}^2 = \mathbf{k}^2 = \mathbf{ijk} = -1$. Iz te zveze sledijo formule za posamezno množenje dveh baznih elementov. Kvaternion lahko zapišemo kot skalarni in vektorski del. Tako dobimo formulo za množenje dveh kvaternionov:
+
+\begin{equation*}
+\begin{array}{c c}
+\text{A,$~$B $\in \HH$} & \\
+\text{A = (a, $\mathbf{a}$)} & \text{a,b $\in \R$ }\\
+\text{B = (b, $\mathbf{b}$)} & \mathbf{a}, \mathbf{b} \in \R^3\\
+&\\
+\text{A$\cdot$ B} = &
+\end{array}
+\end{equation*}
+Zaradi lažjega razumevanja, bom kvaternionsko množenje označevala z $\cdot$, skalarno množenje pa $\langle\cdot,\cdot\rangle$.
+Norma kvaterniona:
+\begin{equation*}
+\begin{array}{c c}
+h \in \HH & \rightarrow ||h|| = \sqrt{\langle h, \overline{h}\rangle}
+\end{array}
+\end{equation*}
+\begin{definicija}
+Krivulja $\rr$ je \textit{racionalna}, če velja $\rr(t) = \frac{p(t)}{q(t)}$, kjer sta $p$ in $q$ polinoma.
+\end{definicija}
+\begin{definicija}
+\textit{Parametrično podana krivulja} v $\R^n$ je množica točk, podana s parametrizacijo:
+\begin{equation*}
+\rr: [ a,b ] \rightarrow \R^n
+\end{equation*}
+\begin{equation*}
+t ~ \longmapsto ~\rr(t)
+\end{equation*}
+\end{definicija}
+\begin{primer}
+n = 3:
+\begin{equation*}
+\rr:[a,b] \rightarrow \R^3
+\end{equation*}
+\begin{equation*}
+t \longmapsto \rr(t) = (x(t),y(t),z(t))
+\end{equation*}
+\end{primer}
+\begin{definicija}
+Parametrično podana krivulja $\rr$ je \textit{Pitagorejska krivulja\\ (P-krivulja)}, če je $\boldsymbol{o}(t) = \frac{\rr(t)}{||\rr(t)||}$ .
+\end{definicija}
+\begin{opomba}
+Definicija pove (za n = 3), da je $||\rr(t)|| = \sqrt{x(t)^2 + y(t)^2 + z(t)^2}$ polinom, oziroma $x(t)^2 + y(t)^2 + z(t)^2 = \sigma^2$ za nek $\sigma$.
+\end{opomba}
+
+
+\section{nevem}
+\subsection{Konstrukcija P-krivulje}
+V tem razdelku bom opisala postopek, s katerim bomo dobili našo krivuljo.\\
+Za začetek vzemimo poljubni kvaternionski polinom $\mathcal{A}(t)$, ki naj bo stopnje $n$. Torej:
+\begin{equation*}
+\mathcal{A}: I \subset \R \rightarrow \HH
+\end{equation*}
+\begin{equation*}
+\begin{array}{c c c}
+\mathcal{A}(t) = u(t) + v(t) \mathbf{i} + p(t) \mathbf{j} + q(t) \mathbf{k}, & t \in I,& u,v,p,q \in \R[t].
+\end{array}
+\end{equation*}
+Iz kvaternionskega polinoma $\mathcal{A}(t)$, bomo konstruirali parametrično krivuljo $\mathbf{p}(t)$. In sicer:
+\begin{equation}
+\boldsymbol{p}(t) := \mathcal{A}(t) \boldsymbol{i} \overline{\mathcal{A}}(t)
+\end{equation}.
+Pokažimo, da je krivulja dobljena bo zgornjem predpisu, res parametrična krivulja. Izkaže se, da je tudi P-krivulja in sicer stopnje 2n. Zaradi boljše preglednosti, bomo izpustili argument, vendar se zavedamo, da so prepisi odvisni od parametra t.
+\begin{equation*}
+\begin{array}{c}
+\mathcal{A} = u + v\boldsymbol{i} + p \boldsymbol{j} + q \boldsymbol{k}  \\
+\overline{\mathcal{A}} = u - v\boldsymbol{i} - p \boldsymbol{j} - q \boldsymbol{k}  \\
+\mathcal{A} \boldsymbol{i} = u \boldsymbol{i} + v \boldsymbol{i}^2 + p \boldsymbol{ji} + q\boldsymbol{ki} =  u \boldsymbol{i} - v - p \boldsymbol{k} + q\boldsymbol{j}	
+\end{array} 
+\end{equation*}
+\begin{equation*}
+\begin{split}
+\mathcal{A}\boldsymbol{i}\overline{\mathcal{A}} & =(u\boldsymbol{i}-v-p\boldsymbol{k}+q\boldsymbol{j})(u-v\boldsymbol{i}-p\boldsymbol{j}-q\boldsymbol{k}) \\
+&= u^2 \ii -uv\ii^2-pu\ii\jj - uq\ii\kk - vu + v^2\ii + vp\jj\\
+&~~ +vq\kk - pu\kk + pv\kk\ii + p^2 \kk\jj + pq\kk^2 + qu\jj - qv\jj\ii - qp\jj^2 -q^2\jj\kk \\
+& = u^2\ii + uv - pu\kk + uq\jj -vu+v^2\ii +vp\jj + vq\kk \\
+& ~~-pu\kk+pv\jj-p^2\ii-pq+qu\jj+qv\kk+qp-q^2\ii \\
+& = (u^2+v^2-p^2-q^2)\ii + 2(uq-vp)\jj +2(vq-pu)\kk
+\end{split}
+\end{equation*}
+Opazimo, da imao samo 3 bazne elemente, saj je skalarni del enak 0. Zato lahko $\pp = \A\ii\A$ identificiramo z točko v $\R^3$. Torej dobimo:
+\begin{equation*}
+\pp = (u^2+v^2-p^2-q^2, 2(uq+vp),2(vq-pu)).
+\end{equation*}
+Na začetku smo vzeli kvaternionski polinom $\A=u+v\ii+p\jj+q\kk$, kjer so $u,v,p,q$ polinomi stopnje n. Ker v $\pp$ nastopajo le zmnožki dveh teh polinom, vsote in razlike, je dobljeni $\pp$ stopnje 2n.\\
+Pokažimo sedaj, da je krivulja $\pp$ dobljena po zgornjem predpisu, P-krivulja. Da bo krivulja P-krivulja, mora veljati, da je $\boldsymbol{o} = \frac{\pp}{||\pp||}$ racionalna krivulja. Vemo že, da je $\pp$ polinom. Preverimo, da je tudi $||\pp||$ polinom.
+\begin{equation*}
+\begin{split}
+||\pp||^2 &= \langle \pp,\overline{\pp}\rangle = (\A\ii\overline{\A})\overline{(\A\ii\overline{\A})} \\
+&= \A\ii\overline{\A}\A\overline{\ii} \overline{\A} \\
+\langle \overline{\A}, \A \rangle = ||\A||^2 ~~ \longrightarrow ~~& = ||\A||^2 \A \ii \overline{\ii} \overline{\A} \\
+\ii(-\ii) = -\ii^2 = 1 ~~ \longrightarrow ~~ & = ||\A||^2 \A \overline{\A} \\
+&=||\A||^4 \\
+\Longrightarrow ~~~~ & ||\pp|| = ||\A||^2
+\end{split}
+\end{equation*}
+Pokazali smo, da je $||\pp|| = ||\A||^2$, vemo pa, da je $\A$ sestavljen iz polinomov. Torej je $||\pp||$ res polinom.\\
+
+Sklep: Iz kvaternionskega polinoma $\A(t)$, stopnje n, smo po predpisu\\ $\pp(t) = \A(t)\ii\overline{\A(t)}$ konstruirali P-krivuljo stopnje 2n. 
+
+PRIMERI MATHEMATICA, slikice
+
+\subsection{Zapis krivulje v Bernsteinovi bazi}
+Naš cilj je opisati gibanje kamere okoli nekega fiksnega objekta. Želimo si nadzorovati to gibanje in vsaj pribljižno napovedati, kje se bo krivulja gibala. Videli bomo, da tega ne moremo doseči, če krivuljo zapišemo v standardni bazi. To bomo dosegli s pomočjo Bernsteinove baze. \\
+Poglejmo si najprej zapis krivulje v standardni bazi. Poljuben polinom $\pp$ stopnje n, se v standardni bazi zapiše kot:
+\begin{equation*}
+\begin{array}{c c}
+\pp(t) = \sum_{i=0}^n p_i t^i & \text{kjer so $p_i$ točke v $\R^3$.}
+\end{array}
+\end{equation*}
+Poglejmo si nekaj preprostih primerov, primerjamo izbrane točke $p_i$ in obliko dobljene krivulje $\pp(t)$.\\
+
+SLIKE MATLAB
+
+Vidimo, da med izbranimi točkami in obliko krivulje, ni vidne povezave. \\
+Poglejmo si, kaj je to Bernsteinova baza.\\
+\begin{definicija}
+Bernsteinovi bazni polinomi, ki tvorijo bazo polinomov stopnje n, so:
+\begin{equation*}
+\begin{array}{c c}
+B_i^n(t) = \binom{n}{i} tî (1-t)^{n-i}, & i=0,1,\dots,n
+\end{array}
+\end{equation*}
+\end{definicija}
+
+SLIKA PARIH POLINOMOV
+
+Torej se kvaternionski polinom $\A(t)$ zapiše kot:
+\begin{equation*}
+\A(t) = \sum_{i=0}^n \boldsymbol{A}_i B_i^n(t),
+\end{equation*}
+kjer so $\boldsymbol{A}_i \in \HH$ in $B_i^n$ Bernsteinovi bazni polinomi. Točkam $A_i$ rečemo kontrolne točke, te pa tvorijo tako imenovani kontrolni poligon, ki določa obliko krivulje.
+
+SLIKE MATEMATIKA
+
+\begin{primer}
+n = 2
+\begin{equation*}
+B_i^2(t) = \binom{2}{i} t^i(1-t)^{2-i}, ~~ i=0,1,2
+\end{equation*}
+\begin{equation*}
+\begin{split}
+B_0^2(t) &= \binom{2}{0} t^0(1-t)^{2-0} = (1-t)^2\\
+B_1^2(t) &= \binom{2}{1} t^1(1-t)^{2-1} = 2t(1-t)\\
+B_2^2(t) &= \binom{2}{2} t^2(1-t)^{2-2} = t^2\\
+\Longrightarrow \A(t) &= \boldsymbol{A}_0(1-t)^2 + \boldsymbol{A}_1 2t(1-t) + \boldsymbol{A}_2t^2
+\end{split}
+\end{equation*}
+\end{primer}
+MOGOČE ŠELE TUKAJ SLIKE.
+
+\subsection{Določitev kontrolnih točk}
+V tem razdelku, si bomo pogledali, kako določiti kontrolne točke za krivuljo, zapisano v Bernsteinovi bazi. Vprašanje je, kakšni naj bodo začetni koeficienti polinoma $\A(t)$, če določimo koeficiente krivulji $\pp(t)$. 
+\begin{primer}
+n=1
+\begin{equation*}
+\begin{split}
+\text{Bernsteinova baza}:&~~ B_i^1(t) = \binom{1}{i} t^i(1-t)^{1-i}, ~~ i= 0,1 \\
+B_0^1(t) &= \binom{1}{0} t^0(1-t)^{1-0} = 1-t \\
+B_1^1(t) &= \binom{1}{1} t^1(1-t)^{1-1} = t \\
+\Longrightarrow \A(t) &= \boldsymbol{A}_0(1-t) + \boldsymbol{A}_1t
+\end{split}
+\end{equation*}
+
+Rekli smo, da je $\pp(t) = \A \ii \overline{\A}$. Vemo, da se splošni polinom stopnje n, v Bernsteinovi bazi, zapiše kot:
+\begin{equation*}
+\pp(t) = \sum_{k=0}^n p_k \binom{n}{k}(1-t)^{n-k}t^k.
+\end{equation*}
+V razdelku (?) smo pokazali, da če je $\A$ stopnje n, bo $\pp = \A\ii\overline{\A}$ stopnje 2n.Torej
+\begin{equation*}
+\begin{split}
+B_0^2(t)& = (1-t)^2\\
+B_1^2(t) &= 2t(1-t)\\
+B_2^2(t) &= t^2 \\
+\Longrightarrow \pp(t) = \sum_{i=0}^2 \pp_i B_i^2 &= \pp_0 (1-t)^2 + \pp_12t(1-t) + \pp_2t^2
+\end{split}
+\end{equation*}
+Računamo:
+\begin{equation*}
+\begin{split}
+\pp(t) &= \A(t)\ii\overline{\A(t)} \\
+&= (\boldsymbol{A}_0(1-t) + \boldsymbol{A}_1t) \ii ( \overline{\boldsymbol{A}_0}(1-t) + \overline{\boldsymbol{A}_1}t) \\
+& = (\boldsymbol{A}_0(1-t) + \boldsymbol{A}_1t) (\ii\overline{\boldsymbol{A}_0}(1-t) + \ii\overline{\boldsymbol{A}_1}t) \\
+&=\ba_0 \ii \overline{\ba_0} (1-t)^2 + \ba_0\ii\overline{\ba_1}(1-t)t + \ba_1\ii\overline{\ba_0}t(1-t) + \ba_1\ii\overline{\ba_1}t^2 \\
+&= \ba_0 \ii \overline{\ba_0} (1-t)^2 + \left(\frac{1}{2}\ba_0\ii\overline{\ba_1} +\frac{1}{2} \ba_1\ii\overline{\ba_0}\right)2t(1-t) + \ba_1\ii\overline{\ba_1}t^2
+\end{split}
+\end{equation*}
+Primerjamo istoležne koeficiente in dobimo naslednje enačbe:
+\begin{equation*}
+\begin{split}
+\pp_0&= \ba_0\ii\overline{\A_0} \\
+\pp_1&= \frac{1}{2}\left( \ba_0\ii\ba_1\overline{\A_1} + \A_1\ii\overline{\A_0}\right)\\
+\pp_2&= \ba_1\ii\overline{\A_1}\end{split}
+\end{equation*}
+\end{primer}
+Z analognim računom pridemo do točk za polinome višjih stopenj.
+\begin{primer}
+n=2 ($\pp$ bo stopnje 4).
+\begin{equation*}
+\begin{split}
+\A(t) &= \ba_0(1-t)^2 + \ba_12t(1-t) + \ba_2(1-t)^2\\
+\pp(t)& = \sum_{k=0}^4\pp_iB_i^4(t) \\
+\Longrightarrow ~~\pp_0 & = \ba_0\ii\overline{\A_0} \\
+\pp_1 &= \frac{1}{2}\left( \ba_0\ii\overline{\A_1} + \ba_1\ii\overline{\A_0} \right) \\
+\pp_2 &= \frac{1}{6} \left( \ba_0\ii\overline{\A_2} + 4\ba_1\ii\overline{\A_1}+\ba_2\ii\overline{\A_0} \right) \\
+\pp_3 &= \frac{1}{2} \left( \ba_1\ii\overline{\A_2}+\ba_2\ii\overline{\A_1} \right) \\
+\pp_4 &= \ba_2\ii\overline{\A_2}
+\end{split}
+\end{equation*}
+\end{primer}
+Z višanjem stopnje začetnega polinoma, dobimo več prostih parametrov, kar lahko izkoristimo pri konstrukciji krivulje. Več o tem kasneje.\\
+Sedaj, ko imamo poračunane kontrolne točke, lahko iz njih poračunamo začetne koeficiente polinoma $\A$. Na primer, lahko si izberemo začetno in končno točko krivulje $\pp(0)$ in $\pp(1)$. n=1
+\begin{equation*}
+\begin{split}
+\ba_0\ii\overline{\A_0} &= \pp(0) \\
+\ba_1\ii\overline{\A_1} &= \pp(1)
+\end{split}
+\end{equation*}
+Iz teh dveh enačb, lahko izrazimo $\ba_0$ in $\ba_1$ in dobimo začetni kvaternionski polinom $\A$. Podobno za polinome višjih stopenj, kjer si lahko izberemo začetno in končno točko, ter še dodatno točko.
+
+\section{Ogrodja}
+\begin{definicija}
+Ogrodje $(\e_1,\e_2,\e_3)$ je usmerjeno, če $\e_1$ v vsaki točki krivulje kaže proti izhodišču.
+\end{definicija}
+SLIKCE MATLAB
+
+Vsako ogrodje ima neko kotno hitrost $\omega$, ki nam pove, kako se ogrodje spreminja, oziroma kako se spreminjata vektorja $\e_2$ in $\e_3$.
+\begin{definicija}
+Naj bo $(\e_1,\e_2,\e_3)$ ogrodje in $\omega$ pripadajoča kotna hitrost. Potem je $\omega$ definirana z naslednjimi diferencialnimi enačbami:
+\begin{equation}
+\frac{de_i}{dt}(t) = \omega(t) \times e_i(t), ~~ i=1,2,3.
+\end{equation}
+\end{definicija}
+\begin{definicija}
+Usmerjeno ogrodje $(\e_1,\e_2,\e_3)$ je rotacijsko minimizirajoče, če velja $\langle \omega,\e_1\rangle = 0.$
+\end{definicija}
+
+\begin{trditev}
+Ogrodje $(\e1,\e_2,\e_3)$, definirano kot: 
+\begin{equation*}
+\begin{array}{c c c}
+\e_1 = \frac{\A\ii\overline{\A}}{\A\overline{\A}}, &
+\e_2 = \frac{\A\jj\overline{\A}}{\A\overline{\A}}, &
+\e_3 = \frac{\A\kk\overline{\A}}{\A\overline{\A}}
+\end{array}
+\end{equation*}
+je ortonormirana baza prostora $\R^3$.
+\end{trditev}
+\begin{dokaz}
+TODO
+\end{dokaz}
+\begin{trditev}
+	Usmerjeno ogrodje je rotacijsko minimizirajoče $\Leftrightarrow$ ko je $scal(\A^{'} \\i\overline{\A})\equiv0$.
+\end{trditev}
+\begin{opomba}
+	Oznaka $scal(\cdot)$ označuje skalarni del produkta.
+\end{opomba}
+\begin{dokaz}
+Želimo pokazati, da velja:
+\begin{equation}
+\langle \omega,\e_1\rangle = 0 \Leftrightarrow scal(\A^{'} \\i\overline{\A}) = 0.
+\end{equation}
+Razvijemo $\omega$ po bazi: $\omega = \omega_1\e_1+\omega_2\e_2+\omega_3\e_3$. \\
+Računamo:
+\begin{equation*}
+\begin{split}
+0 = \langle \omega, \e_1 \rangle &= \langle \omega_1\e_1,\e_1\rangle + \langle \omega_2\e_2,\e_1\rangle + \langle \omega_3\e_3,\e_1\rangle \\
+&= \omega_1\langle \e_1,\e_1\rangle + \omega_2\langle \e_2,\e_1\rangle + \omega_3\langle \e_3,\e_1\rangle
+\end{split}
+\end{equation*}
+Ker so $\e_1,\e_2,\e_3$ ortogonalni, je  $\langle \e_2,\e_1\rangle = 0$, $\langle \e_3,\e_1\rangle=0$.
+Ostane nam:
+\begin{equation*}
+\begin{split}
+\langle \omega,\e_1 \rangle &=\omega_1 || \e_1 ||^2 = 0 \\
+\Rightarrow ~~ & \omega_1 = 0.
+\end{split}
+\end{equation*}
+Vemo:
+\begin{equation*}
+\frac{de_i}{dt}(t) = \omega(t) \times e_i(t), ~~ i=1,2,3.
+\end{equation*}
+Razpišimo enačbe za vsak i.\\
+i=1
+\begin{equation*}
+\e_1^{'} = \omega \times \e_1 = \left(
+\begin{array}{c c c}
+\omega_1 & \omega_2 & \omega_3 \\
+1 & 0 & 0
+\end{array} \right)
+= (0, \omega_3,-\omega_2) = \omega_3\e_2 - \omega_2\e_3
+\end{equation*}
+\begin{equation*}
+\e_1^{'} = \omega_3\e_2-\omega_2\e_3
+\end{equation*}
+Celotno enačbo skalarno pomnožimo najprej z $\e_2$, nato z $\e_3$ in upoštevamo da so $\e_1,\e_2,\e_3$ ortogonalni. Dobimo:
+\begin{equation*}
+\begin{split}
+\langle \e_1^{'}, \e_2 \rangle & = \omega_3 \\
+\langle \e_1^{'}, \e_3 \rangle &= -\omega_2
+\end{split}
+\end{equation*}
+
+i=2
+\begin{equation*}
+\e_2^{'} = \omega \times \e_2 = \left(
+\begin{array}{c c c}
+\omega_1 & \omega_2 & \omega_3 \\
+0 & 1 & 0
+\end{array} \right)
+= (-\omega_3, 0,\omega_1) = -\omega_3\e_1 - \omega_1\e_3
+\end{equation*}
+\begin{equation*}
+\e_2^{'} = -\omega_3\e_1-\omega_1\e_3
+\end{equation*}
+Podobno kot prej, enačbo skalarno pomnožimo z $\e_1$ in $\e_3$. Dobimo:
+\begin{equation*}
+\begin{split}
+\langle \e_2^{'}, \e_1 \rangle & = -\omega_3 \\
+\langle \e_2^{'}, \e_3 \rangle &= \omega_1
+\end{split}
+\end{equation*}
+
+i=3
+\begin{equation*}
+\e_3^{'} = \omega \times \e_3 = \left(
+\begin{array}{c c c}
+\omega_1 & \omega_2 & \omega_3 \\
+0 & 0 & 1
+\end{array} \right)
+= (\omega_2, -\omega_1,0) = \omega_2\e_1 - \omega_1\e_2
+\end{equation*}
+\begin{equation*}
+\e_3^{'} = \omega_2\e_1-\omega_1\e_2
+\end{equation*}
+Ponovno enačbo skalarno pomnožimo, tokrat z $\e_1$ in $\e_2$. Dobimo:
+\begin{equation*}
+\begin{split}
+\langle \e_3^{'}, \e_1 \rangle & = \omega_2 \\
+\langle \e_3^{'}, \e_2 \rangle &= -\omega_1
+\end{split}
+\end{equation*}
+Dobljene rezultate združimo. Dobimo:
+\begin{equation}
+\begin{split}
+\omega_1 &= \langle \omega_2^{'}, \e_3 \rangle = - \langle \e_3^{'}, \e_2 \rangle \\
+\omega_2 &= \langle \omega_1^{'}, \e_3 \rangle = - \langle \e_3^{'}, \e_1 \rangle \\
+\omega_3 &= \langle \omega_1^{'}, \e_2 \rangle = - \langle \e_2^{'}, \e_1 \rangle 
+\end{split}
+\end{equation}
+... TODO
+
+
+\end{dokaz}
+
+
+
+\section*{Slovar strokovnih izrazov}
+
+\geslo{}{}
+\geslo{}{}
+
+% seznam uporabljene literature
+\begin{thebibliography}{99}
+
+%\bibitem{}
+
+\end{thebibliography}
+
+\end{document}
+
