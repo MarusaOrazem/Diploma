@@ -57,6 +57,8 @@
 \newcommand{\ba}{\boldsymbol A}
 \newcommand{\e}{\boldsymbol e}
 \newcommand{\A}{\mathcal A}
+\newcommand{\B}{\mathcal B}
+\newcommand{\QQ}{\mathcal Q}
 
 % matematične operatorje deklarirajte kot take, da jih bo Latex pravilno stavil
 % \DeclareMathOperator{\conv}{conv}
@@ -97,15 +99,29 @@ Kvaternionsko množenje:\\
 $\text{Velja zveza:}~\mathbf{i}^2 = \mathbf{j}^2 = \mathbf{k}^2 = \mathbf{ijk} = -1$. Iz te zveze sledijo formule za posamezno množenje dveh baznih elementov. Kvaternion lahko zapišemo kot skalarni in vektorski del. Tako dobimo formulo za množenje dveh kvaternionov:
 
 \begin{equation*}
-\begin{array}{c c}
-\text{A,$~$B $\in \HH$} & \\
-\text{A = (a, $\mathbf{a}$)} & \text{a,b $\in \R$ }\\
-\text{B = (b, $\mathbf{b}$)} & \mathbf{a}, \mathbf{b} \in \R^3\\
-&\\
-\text{A$\cdot$ B} = &
-\end{array}
+\begin{split}
+& A,B \in \HH \\
+&A = (a, \boldsymbol{a}), ~~ a,b \in \R \\
+&B = (b, \boldsymbol{b}), ~~ \boldsymbol{a}, \boldsymbol{b} \in \R^3\\
+A\cdot B = & \left( ab- \langle \boldsymbol{a},\boldsymbol{b} \rangle, a\boldsymbol{b}-b\boldsymbol{a}-\boldsymbol{a}\times \boldsymbol{b}  \right)
+\end{split}
 \end{equation*}
 Zaradi lažjega razumevanja, bom kvaternionsko množenje označevala z $\cdot$, skalarno množenje pa $\langle\cdot,\cdot\rangle$.
+\begin{primer}
+	Primer uporabe formule za kvaternionsko množenje. Izpeljali bomo formulo za skalarno množenje dveh kvaternionov, ki imata skalarni del enak 0.
+	Vemo:
+	\begin{equation*}
+	A\cdot B =  \left( ab- \langle \boldsymbol{a},\boldsymbol{b} \rangle, a\boldsymbol{b}-b\boldsymbol{a}-\boldsymbol{a}\times \boldsymbol{b}  \right)
+	\end{equation*}
+	Naj bosta sedaj $A = (0,\boldsymbol{a})$ in $(0,\boldsymbol{b})$. Dobimo:
+	\begin{equation*}
+	(0,\boldsymbol{a}) \cdot (0,\boldsymbol{b}) = \left( -\langle \boldsymbol{a}, \boldsymbol{b} \rangle , -\boldsymbol{a} \times \boldsymbol{b} \right)
+	\end{equation*}
+	Iz česar sledi:
+	\begin{equation*}
+	\langle \boldsymbol{a},\boldsymbol{b} \rangle = -scal\left( (0,\boldsymbol{a}) \cdot (0,\boldsymbol{b}) \right)
+	\end{equation*}
+\end{primer}
 Norma kvaterniona:
 \begin{equation*}
 \begin{array}{c c}
@@ -333,7 +349,7 @@ Usmerjeno ogrodje $(\e_1,\e_2,\e_3)$ je rotacijsko minimizirajoče, če velja $\
 \end{definicija}
 
 \begin{trditev}
-Ogrodje $(\e1,\e_2,\e_3)$, definirano kot: 
+Ogrodje $(\e_1,\e_2,\e_3)$, definirano kot: 
 \begin{equation*}
 \begin{array}{c c c}
 \e_1 = \frac{\A\ii\overline{\A}}{\A\overline{\A}}, &
@@ -344,7 +360,28 @@ Ogrodje $(\e1,\e_2,\e_3)$, definirano kot:
 je ortonormirana baza prostora $\R^3$.
 \end{trditev}
 \begin{dokaz}
-TODO
+Pokazati moramo, da so skalarni produkti $\langle \e_i, \e_j \rangle $ enaki 0, za $i, j = 1,2,3, i \neq j$. Vemo, da so skalarni deli $\e_1,\e_2,\e_3$ enaki 0, zato lahko uporabimo formulo za skalarni produkt dveh "čistih" kvaternionov.
+\begin{equation*}
+\begin{split}
+	\langle \e_1,\e_2 \rangle& = -scal \left( \e_1 \cdot \e_2 \right) \\
+	& = -scal \left( \A \ii \overline{\A} \A \jj \overline{\A} \right) \\
+	&= - ||\A||^2 scal \left( \A \ii \jj \overline{\A} \right) \\
+	& = - ||\A||^2 scal \left( \A \kk \overline{\A} \right) \\
+	& = 0
+\end{split}
+\end{equation*}
+Analogno poračunamo $\langle \e_2,\e_3 \rangle$, $\langle \e_1,\e_3 \rangle$.
+Izračunajmo še njihove dolžine.
+\begin{equation*}
+\begin{split}
+\A \ii \overline{\A} \A \ii \overline{\A} 	&= ||A||^2 \A \ii^2 \overline{\A} \\
+	&= -||A||^4 \\
+	\Longrightarrow \langle \e_1,\e_1 \rangle &= -scal \left( \e_1 \cdot \e_1 \right) \\
+	&= -scal (-\frac{1}{||\A||^4}||A||^4) \\
+	&= 1
+\end{split}
+\end{equation*}
+Analogno poračunamo dolžine vektorjev $\e_2$ in $\e_3$. Torej je to res ortonormirana baza $\R^3$.
 \end{dokaz}
 \begin{trditev}
 	Usmerjeno ogrodje je rotacijsko minimizirajoče $\Leftrightarrow$ ko je $scal(\A^{'} \\i\overline{\A})\equiv0$.
@@ -440,15 +477,43 @@ Ponovno enačbo skalarno pomnožimo, tokrat z $\e_1$ in $\e_2$. Dobimo:
 Dobljene rezultate združimo. Dobimo:
 \begin{equation}
 \begin{split}
-\omega_1 &= \langle \omega_2^{'}, \e_3 \rangle = - \langle \e_3^{'}, \e_2 \rangle \\
-\omega_2 &= \langle \omega_1^{'}, \e_3 \rangle = - \langle \e_3^{'}, \e_1 \rangle \\
-\omega_3 &= \langle \omega_1^{'}, \e_2 \rangle = - \langle \e_2^{'}, \e_1 \rangle 
+\omega_1 &= \langle \e_2^{'}, \e_3 \rangle = - \langle \e_3^{'}, \e_2 \rangle \\
+\omega_2 &= \langle \e_1^{'}, \e_3 \rangle = - \langle \e_3^{'}, \e_1 \rangle \\
+\omega_3 &= \langle \e_1^{'}, \e_2 \rangle = - \langle \e_2^{'}, \e_1 \rangle 
 \end{split}
 \end{equation}
-... TODO
-
-
+Na tej točki določimo naše ogrodje.
+\begin{equation*}
+\begin{array}{c c c}
+\e_1 = \frac{\A \ii \overline{\A}}{\A \overline{\A}} &
+\e_2 = \frac{\A \jj \overline{\A}}{\A \overline{\A}} &
+\e_3 = \frac{\A \kk \overline{\A}}{\A \overline{\A}}
+\end{array}
+\end{equation*}
+Vemo, da tvorijo ortonormirano bazo. Vemo tudi, da ima produkt $\A \ii \overline{\A}$ skalarni del enak 0. Enako poračunamo za $\A \jj \overline{\A}$ in $\A \kk \overline{\A}$. Od tu sledi:
+\begin{equation*}
+\begin{split}
+	\omega_1 = \langle \e_2', \e_3 \rangle& = -skal \left( \left( \A \jj \overline{\A} \right)' \cdot \left( \A \kk \overline{\A}  \right) \right) \\
+	&= -skal \left( \left( \A' \jj \overline{\A} + \A \jj \overline{\A}' \right)' \cdot \left( \A \kk \overline{\A}  \right) \right) \\
+	&= -skal \left( \left( \A' \jj \overline{\A} \A \kk \overline{\A}+ \A \jj \overline{\A}' \A \kk \overline{\A}  \right) \right) \\
+	&= -skal \left( ||\A||^2 \A' \ii \overline{\A}+ \overline{\left(\A' \overline{\jj} \overline{\A}\right)} \overline{ \left( \A \overline{\kk} \overline{\A} \right) }\right) \\
+	&= -skal \left( ||\A||^2 \A' \ii \overline{\A}+ \overline{\left( ||\A||^2 \A' \overline{\ii} \overline{\A}\right)} \right) \\
+	&= -skal \left( ||\A||^2 \A' \ii \overline{\A} \right)-skal \left(\left( ||\A||^2 \A \ii \overline{\A}'\right) \right) \\
+	&= -2||\A||^2 skal \left( \A' \ii \overline{\A}\right)
+\end{split}
+\end{equation*}
+Od tod sledi:
+\begin{equation*}
+\Longrightarrow \omega_1 = 0 \Leftrightarrow skal \left( \A' \ii \overline{\A} \right) = 0
+\end{equation*}
 \end{dokaz}
+\begin{opomba}
+V splošnem to ogrodje ne bo rotacijsko minimizirajoče, za poljuben kvaternionski polinom $\A$. $\A$ je treba "popraviti" tako, da bo zgornji predpis tvoril rotacijsko minimizirajoče ogrodje. Definiramo nov kvaternionski polinom $\B$ z naslednjim predpisom: $\B(t) = \A(t) \QQ(t)$, kjer je $\QQ$ tak kvaternionski polinom, da velja: $\QQ(t) \ii \overline{\QQ(t)} = \left( \QQ(t) \overline{\QQ(t)} \right) \ii$. Torej dobimo:
+\begin{equation*}
+	\B \ii \overline{\B} = \A \QQ \ii \overline{\QQ} \overline{\A} = \A \QQ \overline{\QQ} \ii \overline{\A} = ||\QQ||^2\A\ii\overline{\A}
+\end{equation*}
+Torej bo smer vektorja $\frac{\B \ii \overline{\B}}{\B  \overline{\B}}$ enaka smeri vektorja $\frac{\A \ii \overline{\A}}{\A  \overline{\A}}$. Torej $\QQ$ doličimo tako, da bo $\B = \A\QQ$ določalo rotacijsko minimizirajoče ogrodje. S pomočjo kvaternionskega polinoma $\QQ$, lahko dobimo več prostih parametrov pri konstrukciji krivulje. Višja kot bo stopnja $\QQ$, več le teh dobimo. V dokazu smo zaradi lažje analize predpostavili, da je $\QQ=1$.
+\end{opomba}
 
 
 
