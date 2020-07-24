@@ -5,6 +5,8 @@
 % \documentclass[fin2]{fmfdelo}
 % \documentclass[isrm2]{fmfdelo}
 
+\usepackage{graphicx}
+
 
 % naslednje ukaze ustrezno napolnite
 \avtor{Maruša Oražem}
@@ -221,10 +223,13 @@ Poglejmo si najprej zapis krivulje v standardni bazi. Poljuben polinom $\pp$ sto
 \pp(t) = \sum_{i=0}^n p_i t^i & \text{kjer so $p_i$ točke v $\R^3$.}
 \end{array}
 \end{equation*}
-Poglejmo si nekaj preprostih primerov, primerjamo izbrane točke $p_i$ in obliko dobljene krivulje $\pp(t)$.\\
-
-SLIKE MATLAB
-
+Poglejmo si nekaj preprostih primerov, primerjamo izbrane točke $p_i$ in obliko dobljene krivulje $\pp(t)$.
+\begin{equation*}
+\begin{array}{c c}
+\includegraphics[scale=0.20]{C:/Users/Acer/Desktop/diploma/Diploma/standKrivulja3.jpg} &
+\includegraphics[scale=0.20]{C:/Users/Acer/Desktop/diploma/Diploma/standKrivulja4.jpg}
+\end{array}
+\end{equation*}
 Vidimo, da med izbranimi točkami in obliko krivulje, ni vidne povezave. \\
 Poglejmo si, kaj je to Bernsteinova baza.\\
 \begin{definicija}
@@ -235,8 +240,14 @@ B_i^n(t) = \binom{n}{i} tî (1-t)^{n-i}, & i=0,1,\dots,n
 \end{array}
 \end{equation*}
 \end{definicija}
+\begin{equation*}
+\begin{array}{c c}
+\includegraphics[scale=0.35]{C:/Users/Acer/Desktop/diploma/Diploma/bernPolinom4.jpg} &
+\includegraphics[scale=0.35]{C:/Users/Acer/Desktop/diploma/Diploma/bernPolinom10.jpg}
+\end{array}
+\end{equation*}
+Grafični prikaz bernsteinovih baznih polinomov za n = 4 in n= 10.
 
-SLIKA PARIH POLINOMOV
 
 Torej se kvaternionski polinom $\A(t)$ zapiše kot:
 \begin{equation*}
@@ -244,7 +255,13 @@ Torej se kvaternionski polinom $\A(t)$ zapiše kot:
 \end{equation*}
 kjer so $\boldsymbol{A}_i \in \HH$ in $B_i^n$ Bernsteinovi bazni polinomi. Točkam $A_i$ rečemo kontrolne točke, te pa tvorijo tako imenovani kontrolni poligon, ki določa obliko krivulje.
 
-SLIKE MATEMATIKA
+\begin{equation*}
+\begin{array}{c c}
+\includegraphics[scale=0.35]{C:/Users/Acer/Desktop/diploma/Diploma/bernKrivulja1.jpg} &
+\includegraphics[scale=0.15]{C:/Users/Acer/Desktop/diploma/Diploma/bernKrivulja3.jpg}
+\end{array}
+\end{equation*}
+Primer prileganja krivulje kontrolnemu poligoni na točkah (0,0), (1,1), (2,-1), (0,-3), (-2,2) in če dodamo še (3,2).
 
 \begin{primer}
 n = 2
@@ -259,8 +276,16 @@ B_2^2(t) &= \binom{2}{2} t^2(1-t)^{2-2} = t^2\\
 \Longrightarrow \A(t) &= \boldsymbol{A}_0(1-t)^2 + \boldsymbol{A}_1 2t(1-t) + \boldsymbol{A}_2t^2
 \end{split}
 \end{equation*}
+\begin{equation*}
+\begin{array}{c c}
+\includegraphics[scale=0.35]{C:/Users/Acer/Desktop/diploma/Diploma/stand3.jpg} &
+\includegraphics[scale=0.35]{C:/Users/Acer/Desktop/diploma/Diploma/bern3.jpg}
+\end{array}
+\end{equation*}
+primer polinoma zapisanega v standardni bazi in bernsteinovi bazi, z istimi kontrolnimi točkami (-1,0), (0,1), (1,0).
 \end{primer}
-MOGOČE ŠELE TUKAJ SLIKE.
+
+
 
 \subsection{Določitev kontrolnih točk}
 V tem razdelku, si bomo pogledali, kako določiti kontrolne točke za krivuljo, zapisano v Bernsteinovi bazi. Vprašanje je, kakšni naj bodo začetni koeficienti polinoma $\A(t)$, če določimo koeficiente krivulji $\pp(t)$. 
@@ -335,7 +360,12 @@ Iz teh dveh enačb, lahko izrazimo $\ba_0$ in $\ba_1$ in dobimo začetni kvatern
 \begin{definicija}
 Ogrodje $(\e_1,\e_2,\e_3)$ je usmerjeno, če $\e_1$ v vsaki točki krivulje kaže proti izhodišču.
 \end{definicija}
-SLIKCE MATLAB
+\begin{equation*}
+\begin{array}{c c}
+\includegraphics[scale=0.25]{C:/Users/Acer/Desktop/diploma/Diploma/polarindi1.jpg} &
+\includegraphics[scale=0.25]{C:/Users/Acer/Desktop/diploma/Diploma/polarindi4.jpg}
+\end{array}
+\end{equation*}
 
 Vsako ogrodje ima neko kotno hitrost $\omega$, ki nam pove, kako se ogrodje spreminja, oziroma kako se spreminjata vektorja $\e_2$ in $\e_3$.
 \begin{definicija}
@@ -514,7 +544,6 @@ V splošnem to ogrodje ne bo rotacijsko minimizirajoče, za poljuben kvaternions
 \end{equation*}
 Torej bo smer vektorja $\frac{\B \ii \overline{\B}}{\B  \overline{\B}}$ enaka smeri vektorja $\frac{\A \ii \overline{\A}}{\A  \overline{\A}}$. Torej $\QQ$ doličimo tako, da bo $\B = \A\QQ$ določalo rotacijsko minimizirajoče ogrodje. S pomočjo kvaternionskega polinoma $\QQ$, lahko dobimo več prostih parametrov pri konstrukciji krivulje. Višja kot bo stopnja $\QQ$, več le teh dobimo. V dokazu smo zaradi lažje analize predpostavili, da je $\QQ=1$.
 \end{opomba}
-
 
 
 \section*{Slovar strokovnih izrazov}
