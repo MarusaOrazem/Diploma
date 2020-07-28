@@ -621,6 +621,81 @@ ker imamo vzporedne vektorje, in
 \A_2 = \sqrt{|\lambda|} \jj(cos\phi_2 + \ii sin\phi_2)
 \end{equation}
 sicer. Brez škode za splošnost nastavimo $\phi_0 = 0$. Iz tega sledi, da je $\A_0 = \ii$.
+\begin{izrek}
+	Za P-krivuljo, ki jo določa kvaternionski polinom $\A(t) = \A_0(1-t)^2 + \A_02(1-t)t + \A_2t^2$, obstaja rotacijsko minimizirajoče ogrodje, če velja:
+	\begin{equation}
+		\A_1 \ii \overline{\A_1} = vect(\A_2 \ii \overline{\A_0}).
+	\end{equation}
+\end{izrek}
+\begin{dokaz}
+	TODO
+\end{dokaz}
+Zaradi bolše preglednosti, vpeljimo nove oznake.
+\begin{equation}
+\begin{array}{c c}
+	\A_2 = \sqrt{|\lambda|} n_2 (cos\phi_2 + \ii sin\phi_2) &, n_2 = \frac{\ii + \lambda}{|\ii + \lambda|}
+\end{array}
+\end{equation}
+Torej se pogoj (?) pretvori v
+\begin{equation}
+\begin{split}
+	\A_1 \ii \overline{\A_1} &=vect(\A_2 \ii \overline{\A_0})\\  
+	&=vect(\A_2) \\
+	&= vect\left( \sqrt{|\lambda|} n_2(cos\phi_2 + \ii sin\phi_2) \right) \\
+	&= \sqrt{\lambda} \left(n_2 cos\phi_2 + n_2 \times \ii sin\phi_2\right) 
+\end{split}
+\end{equation}
+Ponovno uporabimo izrek (?) in dobimo rešitev za $\A_1$:
+\begin{equation}
+	\begin{array}{c c c}
+	\A_1 = \sqrt{|w|} n_1(cos\phi_1 + \ii sin\phi_1), & w = \sqrt{\lambda} \left(n_2 cos\phi_2 + n_2 \times \ii sin\phi_2\right), & n_1 = \frac{w + |w| \ii}{|w + |w|\ii|}
+	\end{array}
+\end{equation}
+Torej:
+\begin{equation}
+\begin{split}
+	vect(\A_1) &= vec\left( \sqrt{|w|} n_1(cos\phi_1 + \ii sin\phi_1) \right) \\
+	&=cos\phi_1 w_1 + sin\phi_1 w_2,
+\end{split}
+\end{equation}
+kjer je
+\begin{equation}
+	\begin{array}{c c}
+	w_1 = \sqrt{|w|} n_1, & w_2 = \sqrt{|w|} n_1 \times \ii
+	\end{array}
+\end{equation}
+\begin{trditev}
+	Če je $\oo_z != \ii$, so vektorji $w,~ w\times \ii,~ w_1,~w_2,~\g_z\times(w_1\times w_2)$ neničelni.
+\end{trditev}
+\begin{opomba}
+	Trditev nam pove, da če je $\oo_z != \ii$, sta vektorja $w!=0$ in $w\times \ii != 0$ iz česar sledi, da sta $n_1$ in $\A_1$ dobro definirana.
+\end{opomba}
+\begin{dokaz}
+	TODO
+\end{dokaz}
+Poračunajmo še eno enačbo. Iz (?) sledi:
+\begin{equation}
+	\begin{split}
+	\mu \ff_z + 4 \ii &= 2(\A_0 \ii \overline{\A_1} + \A_1 \ii \overline{\A_0})\\
+	&= 2(-\overline{\A_1} + A_1) \\
+	&= 4vect(\A_1) \\
+	\Longrightarrow vect(\A_1) &= \frac{\mu \ff_z}{4} + \ii
+	\end{split}
+\end{equation}
+Ker je $\g_z = \ii \times \ff_z$ sledi:
+\begin{equation}
+	\langle vect(\A_1), \g_z\rangle = \langle \frac{\mu \ff_z}{4} + \ii ,\ii \times \ff_z \rangle = 
+	\langle \frac{\mu \ff_z}{4} ,\ii \times \ff_z \rangle + 
+	\langle \ii ,\ii \times \ff_z \rangle = 0
+\end{equation}
+\begin{equation}
+	\langle vect(\A_1), \ff_z \rangle = \langle \frac{\mu \ff_z}{4} + \ii ,\ff_z \rangle = \frac{\mu}{4} > 0
+\end{equation}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Algoritem}
 Ko sestavimo vse stvari skupaj, opišemo naš postopek z naslednjim algoritmom.\\
