@@ -1,0 +1,13 @@
+function PlotFreneOgrodje
+%funkcija nariše frenejevo ogrodje, na dani krivulji f, df je odvod.
+syms t
+R = [cos(t), sin(2*t), cos(2*t)];
+R_dot = diff(R,t) %odvod po t
+R_ddot = diff(R_dot,t) %drugi odvo
+r = [cos(t), sin(2*t), cos(2*t)];
+fplot3(r(1),r(2),r(3),[0,2*pi])
+hold on
+th = R_dot/norm(R_dot)
+T = linspace(0, 2*pi,10);
+TH = subs(th, t, T.');
+quiver3(cos(T), sin(2*T), cos(2*T), TH(:,1).', TH(:,2).', TH(:,3).', 'r');
