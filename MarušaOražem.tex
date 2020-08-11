@@ -65,6 +65,7 @@
 \newcommand{\vv}{\boldsymbol v}
 \newcommand{\A}{\mathcal A}
 \newcommand{\B}{\mathcal B}
+\newcommand{\CC}{\mathcal C}
 \newcommand{\QQ}{\mathcal Q}
 \newcommand{\ff}{\boldsymbol f}
 \newcommand{\g}{\boldsymbol g}
@@ -236,7 +237,7 @@ Poglejmo si, kako je definirana Bernsteinova baza in kakšno povezavo imajo toč
 \begin{definicija}
 Bernsteinovi bazni polinomi, stopnje $n$, so
 \begin{equation*}
-B_i^n(t) = \binom{n}{i} tî (1-t)^{n-i}, \quad i=0,1,\dots,n.
+B_i^n(t) = \binom{n}{i} t^i (1-t)^{n-i}, \quad i=0,1,\dots,n.
 \end{equation*}
 \end{definicija}
 \begin{equation*}
@@ -249,8 +250,84 @@ Sliki \ref{bern_1} in \ref{bern_2} prikazujeta Bernsteinove bazne polinome za $n
 \begin{trditev}
 	Bernsteinovi bazni polinomi stopnje $n$, tvorijo bazo za $\mathbb{P}_n$.
 \end{trditev}
+Predno se lotimo dokaza, zapišimo še lemi, ki ju bomo potrebovali v dokazu.
+\begin{lema}
+	Velja naslednja enakost:
+	\begin{equation}{\label{binom}}
+		\binom{n}{i} \binom{n-i}{j-i} = \binom{n}{j} \binom{j}{i}.
+	\end{equation}
+\end{lema}
 \begin{dokaz}
-	todo
+	Razpišemo vsako stran posebej in ju primerjamo. Leva stran nam da
+	\begin{equation*}
+		\frac{n!}{i!(n-i)!} \frac{(n-i)!}{(j-i)!(n-i-j+i)!} = \frac{n!}{i!(j-i)!(n-j)!}.
+	\end{equation*}
+	Desna stran nam da
+	\begin{equation*}
+		\frac{n!}{j!(n-j)!} \frac{j!}{i!(j-i!)} = \frac{n!}{(n-j)!i!(j-i)!}.
+	\end{equation*}
+	Vidimo, da enačba drži.
+\end{dokaz}
+\begin{lema}{\label{bern_potencna}}
+	Bernsteinovi bazni polinomi $B_i^n$ se v potenčni bazi izražajo kot
+	\begin{equation}{\label{bern_pot}}
+		B_i^n(t) = \sum_{j=i}^n (-1)^{j-i} \binom{n}{j} \binom{j}{i} t^j.
+	\end{equation}
+\end{lema}
+\begin{dokaz}
+	Za dokaz uporabimo binomski izrek, ki pove razvoj potence binoma in sicer
+	\begin{equation*}
+		\left(x + y\right)^n = \sum_{i=0}^n \binom{n}{i}x^{n-i}y^i.
+	\end{equation*}
+	Zapišimo Bernsteinov bazni polinom po definiciji in upoštevajmo razvoj potence binoma. Torej
+	\begin{equation*}
+	\begin{split}
+	B_i^n(t) &= \binom{n}{i}t^i\left(1-t\right)^{n-i} = \binom{n}{i}t^i \sum_{j=0}^{n-i} \binom{n-i}{j}1^{n-i-j}(-t)^j \\
+	&= \sum_{j=0}^{n-i} \binom{n}{i} \binom{n-i}{j} (-1)^j t^{i+j}.
+	\end{split}
+	\end{equation*}
+	Zamaknemo indeks v vsoti in dobimo
+	\begin{equation*}
+		B_i^n(t) = \sum_{j=i}^{n} \binom{n}{i} \binom{n-i}{j-i} (-1)^{j-i} t^{j}.
+	\end{equation*}
+	Upoštevamo enačbo \ref{binom} in dobimo
+	\begin{equation*}
+		B_i^n(t) = \sum_{j=i}^n \binom{n}{j} \binom{j}{i} (-1)^{j-i} t^j,
+	\end{equation*}
+	kar zaključuje dokaz.
+\end{dokaz}
+\begin{dokaz}
+	Ker je število Bernsteinovih baznih polinomov enako dimenziji prostora $\mathbb{P}_n$, je potreba dokazati le, da so med sabo linearno neodvisni. Torej pokazati moramo, da je
+	\begin{equation*}
+		\sum_{i=0}^n \alpha_i B_i^n = 0 \quad \Longleftrightarrow \quad \alpha_i = 0, \quad \forall i.
+	\end{equation*}
+	Linearno neodvisnost bomo pokazali tako, da bomo zapisali preslikavo, ki bo preslikala standardno bazo za $\mathbb{P}_n$ v Bernsteinovo bazo. Ker vemo da je standardna baza linearno neodvisna, bo sledilo da so neodvisni tudi Bernsteinovi bazni polinomi. Uporabimo lemo \ref{bern_potencna} in zapišemo
+	\begin{equation*}
+		\begin{bmatrix}
+		B_0^n(t) \\ \\B_1^n(t) \\ \\ \vdots \\ \\ B_n^n(t)
+		\end{bmatrix}
+		= 
+		\begin{bmatrix}
+		\binom{n}{0} & -\binom{n}{1} & \binom{n}{2} &\cdots &(-1)^n \binom{n}{n} \\ \\
+		0 & \binom{n}{1} \binom{1}{1} &-\binom{n}{2} \binom{2}{1} &\cdots & (-1)^{n-1} \binom{n}{n} \binom{n}{1} \\ \\
+		\vdots &&&\ddots& \vdots \\ \\
+		0 &0& 0 & \cdots & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+		1 \\ \\ t  \\ \\ \vdots \\ \\ t^n
+		\end{bmatrix}.
+	\end{equation*}
+	Pokazati moramo, da je prehodna matrika obrljiva. Označimo jo z $A$. Ker je $A$ zgornjetrikotna, moramo pokazati le, da so diagonalni elementi neničelni, kar pa očitno drži. Torej obstaja inverzna matrika $A^{-1}$, za katero velja
+	\begin{equation*}
+		\begin{bmatrix}
+		1 \\   \\  t \\ \\ \vdots \\ \\ t^n
+		\end{bmatrix}
+		= A^{-1}
+		\begin{bmatrix}
+		B_0^n(t) \\ \\B_1^n(t) \\ \\ \vdots \\ \\ B_n^n(t)
+		\end{bmatrix}.		
+	\end{equation*}
+	Torej so Bernstenovi bazni polinomi res linearno neodvisni in tvorijo bazo za $\mathbb{P}_n$.
 \end{dokaz}
 
 Zapišimo sedaj kvaternionski polinom $\A(t)$ v Bernsteinovi bazi. Dobimo
@@ -387,6 +464,16 @@ Sedaj, ko imamo izračunane kontrolne točke, lahko iz njih izračunamo začetne
 \end{equation*}
 Iz teh dveh enačb lahko izrazimo $\A_0$ in $\A_1$ in dobimo začetni kvaternionski polinom $\A$. Podobno za polinome višjih stopenj, kjer si lahko izberemo začetno in končno točko ter še dodatno točko.	
 \end{primer}
+
+\begin{trditev}
+	Naj bo $\A \in \HH$, $\CC$ čisti ne ničelni kvaternion in $\e$ čisti enotski kvaternion. Rešitev enačbe $\A \e \overline{\A} = \CC$ je
+	\begin{equation}{\label{kvat_resitev}}
+		\A = \sqrt{||\CC||} \frac{\frac{\CC}{||\CC||} + \e}{||\frac{\CC}{||\CC||} + \e||}\left(\cos \phi + \ii \sin \phi \right)
+	\end{equation}
+\end{trditev}
+\begin{dokaz}
+	todo
+\end{dokaz}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ogrodja}
 
@@ -506,7 +593,7 @@ Od tod sledi
 \end{equation*}
 Na isti načim pokažemo, da velja $||\e_2||=||\e_3||=1$, od koder sledi, da je res ortonormirana baza v $\R^3$.
 \end{dokaz}
-\begin{trditev} Recimo, da imamo ogrodje definirano kot zgoraj.
+\begin{trditev}{\label{rot_min}} Recimo, da imamo ogrodje definirano kot zgoraj.
 	Usmerjeno ogrodje je rotacijsko minimizirajoče natanko tedaj, ko je $scal(\A' i\overline{\A})\equiv0$.
 \end{trditev}
 \begin{dokaz}
@@ -602,8 +689,6 @@ V splošnem to ogrodje ne bo rotacijsko minimizirajoče, če poljubeno izberemo 
 Torej bo smer vektorja $\frac{\B \ii \overline{\B}}{\B  \overline{\B}}$ enaka smeri vektorja $\frac{\A \ii \overline{\A}}{\A  \overline{\A}}$, kar pomeni, da bo ogrodje res usmerjeno ogrodje. Torej $\QQ$ doličimo tako, da bo $\B = \A\QQ$ določalo rotacijsko minimizirajoče ogrodje. S pomočjo kvaternionskega polinoma $\QQ$, lahko dobimo več prostih parametrov pri konstrukciji krivulje. Višja kot bo stopnja $\QQ$, več le teh dobimo. V nadaljevanju bomo zaradi lažje analize predpostavili, da je $\QQ=1$.
 \end{opomba}
 
-
-\section{Izpeljava algoritma}
 \iffalse
 
 \begin{izrek}
@@ -762,7 +847,48 @@ Ko sestavimo vse stvari skupaj, opišemo naš postopek z naslednjim algoritmom.\
 \end{enumerate}
 \fi
 
+\section{Interpolacijski problem}{\label{int_problem}}
+V tem razdelku bomo opisali interpolacijski problem, ki ga želimo interpolirati. Poiskati želimo P-krivuljo, stopnje 4, $\pp:\left[0,1\right] \rightarrow \R^3$, za katero velja, da je začetna točka enaka $\pp(0) = P_0$ in končna $\pp(1)=P_1$ in bo njeno usmerjeno ER ogrodje pri $t=0$ enako $\left( \e_1^{P_0},\e_2^{P_0},\e_3^{P_0} \right)$, pri $t=1$ pa $\left( \e_1^{P_1},\e_2^{P_1},\e_3^{P_1} \right)$, pri čemer velja $\e_1^{p_0}= \frac{\pp(0)}{||\pp(0)||}$ in $\e_1^{p_1}= \frac{\pp(1)}{||\pp(1)||}$.
+
+	Najprej moramo rešiti enačbi, ki nam ju določata robna položaja.
+	Prvi robni pogoj $\pp(0) = P_0$ nam da enačbo $\A_1 \ii \overline{\A_1} = P_0$, katere rešitev je po \ref{kvat_resitev} enaka 
+	\begin{equation}
+		\A_1(\phi_0) = \sqrt{||P_0||} \frac{\frac{P_0}{||P_0||}+\ii}{||\frac{P_0}{||P_0||}+\ii||} \left( \cos \phi_0 + \ii \sin \phi_0 \right),
+	\end{equation}
+	kjer je $\phi_0$ poljuben kot.
+	Drugi robni pogoj $\pp(1) = P_1$ nam da enačbo $\A_2 \ii \overline{\A_2} = P_1$, katere rešitev je po \ref{kvat_resitev} enaka 
+	\begin{equation}
+	\A_2(\phi_2) = \sqrt{||P_1||} \frac{\frac{P_1}{||P_1||}+\ii}{||\frac{P_1}{||P_1||}+\ii||} \left( \cos \phi_2 + \ii \sin \phi_2 \right),
+	\end{equation}
+	kjer je $\phi_2$ poljuben kot.
+	
+
+	Zadostiti moramo pogoju za rotacijsko minimizirajoče ogrodje \ref{rot_min}.
+	\begin{trditev} Naj bo $\A(t) = \A_0(1-t)^2 + \A_12(1-t)t+\A_2t^2$.
+		Ogrodje, definirano kot
+		\begin{equation*}
+			\e_1 = \frac{\A \ii \overline{\A}}{||\A||},\quad \e_2= \frac{\A \jj \overline{\A}}{||\A||}, \quad \e_3 = \frac{\A \kk \overline{\A}}{||\A||}
+		\end{equation*}
+		bo rotacijsko minimizirajoče natanko tedaj, ko bo
+		\begin{equation}{\label{rot_pogoj}}
+			\A_1 \ii \overline{\A_1} = {\rm vect} \left(\A_2 \ii \overline{\A_0}\right).
+		\end{equation}
+	\end{trditev}
+\begin{dokaz}
+	todo
+\end{dokaz}
+Iz enačbe \ref{rot_pogoj} poračunamo še koeficient $\A_1$. Po \ref{kvat_resitev} je ta enaka
+\begin{equation}
+	\A_1(\phi_2) = \sqrt{||b||} \frac{\frac{b}{||b||}+ \ii}{||\frac{b}{||b||}+ \ii||} \left(\cos \phi_1 + \sin \phi_1\right),
+\end{equation}
+kjer je $\phi_1$ poljuben kot in $b = {\rm vect} \left(\A_2 \ii \overline{\A_0}\right)$.
+Nazadnje je treba upoštevati še drugedva vektorja, ki definirata ogrodje v začetni točki. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 \section{Numerični rezultati}
+V tem poglavju si bomo ogledali nekaj numeričnih rezultatov, ki jih bomo dobili tako, da predpišemo začetni in končni položaj kamere in sledimo postopku opisanem v poglavju \ref{int_problem}.
 
 
 \section*{Slovar strokovnih izrazov}
