@@ -70,9 +70,9 @@
 \newcommand{\QQ}{\mathcal Q}
 \newcommand{\ff}{\boldsymbol f}
 \newcommand{\g}{\boldsymbol g}
-\newcommand{\TT}{\boldsymbol T}
-\newcommand{\NN}{\boldsymbol N}
-\newcommand{\BB}{\boldsymbol B}
+\newcommand{\TT}{\boldsymbol t}
+\newcommand{\NN}{\boldsymbol n}
+\newcommand{\BB}{\boldsymbol b}
 
 % matematične operatorje deklarirajte kot take, da jih bo Latex pravilno stavil
 % \DeclareMathOperator{\conv}{conv}
@@ -83,6 +83,9 @@
 \begin{document}
 
 \section{Uvod}
+V današnjem času je kamera povsem vsakdanji predmet, ki ga srečamo na vsakem koraku. Vgrajena je v skoraj vsak prenosni telefon in računalnik. Dan danes lahko vsak posname nek objekt. Kako pa le tega posneti, da bo naš posnetek čim boljši? Tisti, ki se z posnetki ukvarjajo bolj profesonalno imajo na voljo pripomočke s pomočjo katerih lahko prehodijo neko pot in ob tej poti snemajo nek fiksen objekt. Poti po katerih lahko potuje kamera je seveda neskončno mnogo. Katera pa je najboljša, pa je odvisno od samega vprašanja.  Smiselno se je uprašati, kakšna naj bo predpisana pot kamere, da bo le ta vedno obrnjena proti objektu ki ga snemamo, da se kamera ne bo vrtela okoli svoje osi in s tem poskrbela da se slika ne bo po nepotrebnem vrtela. S takšnimi in podobnimi vprašanji se ukvarjajo predvsem ljudje, ki se ukvarjajo s snemanjem filmov, prav tako pa tudi v navideznem svetu oziroma v svetu računalniških igric. Aplikacije danega problema se uporabljajo celo v medicini in sicer pri endoskopskih operacijah, kjer kirurg vodi kamero do končnega objekta znotraj naših teles. Naš cilj bo opisati take poti kamere, kjer bo kamera ves čas obrnjena proti nekemu fiksnemu objektu in ga pri tem čimbolje posnela. Predpisali bomo začetek in konec krivulje, ki bo določala pot. Med vsemi možnimi krivuljami, bomo poiskali takšne, za katere obstaja taka orientacija, da bo naša kamera potovala brez nepotrebnih rotacij okoli osi, ki bo kazala proti objektu, ki ga snemamo.
+
+V prvem delu diplome se bomo seznanili z osnovnimi pojmi in definicijami, ki jih bomo potrebovali. Nato bomo prepisali predpis, s katerim bomo dobili našo krivuljo in si ogledali kako izbira točk vpliva na sam izgled krivulje. Ogledali si bomo razliko med usmerjenimi in prikrojenimi ogrodji, ter ogrodji ki minimizirajo vrtenje okoli prve osi v ogrodju. Na koncu pa bomo naše ugotovitve ponazorili z primeri.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Osnovni pojmi in definicije}
@@ -129,7 +132,7 @@ $\text{Velja zveza:}~\mathbf{i}^2 = \mathbf{j}^2 = \mathbf{k}^2 = \mathbf{ijk} =
 Zaradi lažjega razumevanja, bomo kvaternionsko množenje označevali z $\cdot$, skalarno množenje pa z $\langle\cdot,\cdot\rangle$.
 \begin{primer}
 	Primer uporabe formule za kvaternionsko množenje . Izpeljali bomo formulo za  množenje dveh kvaternionov, ki imata skalarni del enak 0.
-	Naj bosta $A = (0,\boldsymbol{a})$ in $(0,\boldsymbol{b})$. Po formuli \ref{mn_kvat} dobimo
+	Naj bosta $\A = (0,\boldsymbol{a})$ in $\B=(0,\boldsymbol{b})$. Po formuli \ref{mn_kvat} dobimo
 	\begin{equation*}
 	(0,\boldsymbol{a}) \cdot (0,\boldsymbol{b}) = \left( -\langle \boldsymbol{a}, \boldsymbol{b} \rangle , -\boldsymbol{a} \times \boldsymbol{b} \right),
 	\end{equation*}
@@ -139,7 +142,7 @@ Zaradi lažjega razumevanja, bomo kvaternionsko množenje označevali z $\cdot$,
 	\end{equation}
 \end{primer}
 \begin{opomba}
-	Oznaka $scal(\cdot)$ označuje skalarni del produkta.
+	Oznaka ${\rm scal}(\cdot)$ označuje skalarni del produkta. Z ${\rm vect}(\cdot)$ pa bomo označili vektorski del. Torej če je $\A = (a,\ba)$, označimo ${\rm scal}(\A) = a$ in ${\rm vect}(\A)=\ba$.
 \end{opomba}
 \begin{opomba}
 	Kvaternionu, ki ima skalarni del enak 0, rečemo čisti kvaternion.
@@ -345,13 +348,11 @@ Poglejmo si nekaj lastnosti Bernsteinovih polinomov.
 	\item Prva in zadnja točka določata začetek in konec krivulje, medtem ko umesne točke določajo obliko krivulje.
 \end{itemize}
 Ker si želimo nadzorovati obliko krivulje, bo za nas najpomembnejša zadnja lastnost. Le to prikazujeta sliki \ref{label} in \ref{label}.
-SLIKE
-
-Zapišimo sedaj kvaternionski polinom $\A(t)$ v Bernsteinovi bazi. Dobimo
+Zapišimo sedaj poljubno krivuljo $\pp(t)$ v Bernsteinovi bazi. Dobimo
 \begin{equation*}
-\A(t) = \sum_{i=0}^n \A_i B_i^n(t),
+\pp(t) = \sum_{i=0}^n \pp_i B_i^n(t),
 \end{equation*}
-kjer so $\A_i \in \HH$ in $B_i^n$ Bernsteinovi bazni polinomi. Točkam $\A_i$ rečemo kontrolne točke, te pa tvorijo tako imenovani kontrolni poligon, ki določa obliko krivulje.
+kjer so $\pp_i \in \R^3$ in $B_i^n$ Bernsteinovi bazni polinomi. Točkam $\pp_i$ rečemo kontrolne točke, te pa tvorijo tako imenovani kontrolni poligon, ki določa obliko krivulje.
 
 \begin{equation*}
 \begin{array}{c c}
@@ -375,11 +376,11 @@ B_1^2(t) &= \binom{2}{1} t^1(1-t)^{2-1} = 2t(1-t),\\
 B_2^2(t) &= \binom{2}{2} t^2(1-t)^{2-2} = t^2.
 \end{split}
 \end{equation*}
-Torej lahko kvaternionski polinom $\A$ stopnje 2 zapišemo kot
+Torej lahko krivuljo $\pp$, stopnje 2, zapišemo kot
 \begin{equation*}
-	\A(t) = \A_0(1-t)^2 + \A_1 2t(1-t) + \A_2t^2,
+	\pp(t) = \pp_0(1-t)^2 + \pp_1 2t(1-t) + \pp_2t^2,
 \end{equation*}
-kjer so $\A_0, \A_1, \A_2 \in \HH$. 
+kjer so $\pp_0, \pp_1, \pp_2 \in \R^3$. 
 \begin{equation*}
 \begin{array}{c c}
 \includegraphics[scale=0.35]{C:/Users/Acer/Desktop/diploma/Diploma/slike/stand3.jpg} &
@@ -387,15 +388,12 @@ kjer so $\A_0, \A_1, \A_2 \in \HH$.
 \end{array}
 \end{equation*}
 Na zgornjih dveh slikah sta prikazani krivulji, ki jih dobimo, če vzamemo enake kontrolne točke in določimo krivuljo v standarni bazi (leva slika) in v Bernsteinovi bazi (desna slika). Kot smo že ugotovili zgoraj, je dobljena oblika lepša, če je krivulja zapisana v Bernsteinovi bazi. Nadzorujemo lahko začetno in končno točko, ter obliko krivulje.
-\iffalse
-primer polinoma zapisanega v standardni bazi in bernsteinovi bazi, z istimi kontrolnimi točkami (-1,0), (0,1), (1,0).
-\fi
 \end{primer}
 
 
 
 \subsection{Določitev kontrolnih točk P-krivulj}
-V tem razdelku si bomo pogledali, kako določiti kontrolne točke za krivuljo, zapisano v Bernsteinovi bazi. Vprašanje je, kakšni naj bodo začetni koeficienti polinoma $\A(t)$, če določimo koeficiente krivulji $\pp(t)$. Torej, izbrane imamo točke, ki nam določajo obliko poti krivulje. Kakšni naj bodo potem koeficienti začetnega polinoma $\A(t)$?
+V tem razdelku si bomo pogledali, kako določiti kontrolne točke za krivuljo, zapisano v Bernsteinovi bazi. P-krivuljo dobimo kot $\pp(t)=\A(t)\ii\overline{\A}$. V prejšnjem poglavju smo si pogledali kako zapišemo krivuljo v Bernsteinovi bazi. Tudi kvaternionski polinom $\A(t)$ bomo zapisali v Bernsteinovi bazi. Vprašanje je, kakšni naj bodo začetni koeficienti polinoma $\A(t)$, če določimo koeficiente krivulji $\pp(t)$. Torej, izbrane imamo točke, ki nam določajo obliko poti krivulje. Kakšni naj bodo potem koeficienti začetnega polinoma $\A(t)$? V nadaljevanju tega podpoglavja, bomo izpeljali kontrolne točke kriviljue $\pp$, ki jih dobimo iz kvaternionskih polinomov stopenj $1$, $2$ in $3$.
 \begin{primer}{\label{primer35}}Poračunajmo Bernsteinove bazne polinome za $n=1$. Dobimo
 \begin{equation*}
 B_i^1(t) = \binom{1}{i} t^i(1-t)^{1-i}, \quad i= 0,1.
@@ -468,20 +466,36 @@ Kontrolne točke izračunamo po enakem postopku kot v primeru \ref{primer35} . D
 \end{split}
 \end{equation*}
 \end{primer}
-\iffalse
-Z višanjem stopnje začetnega polinoma, dobimo več prostih parametrov, kar lahko izkoristimo pri konstrukciji krivulje. Več o tem kasneje.
-\fi
+
+\begin{primer}
+	Nazadnje si poglejmo še primer ko je $n=3$. Torej bomo dobili kontrole točke za krivuljo stopnje $6$. Kvaternionski polinom $\A$ je torej enak
+	\begin{equation*}
+	\A(t) = \A_0(1-t)^3+\A_13(1-t)^2t+\A_23(1-t)t^2+\A_3t^3.
+	\end{equation*}
+	Kot v primeru \ref{primer35} poračunamo in dobimo
+	\begin{equation*}
+	\begin{split}
+	\pp_0 &= \A_0\ii\overline{\A_0} \\
+	\pp_1 &= \frac{1}{2} (\A_0\ii\overline{\A_1}+\A_1\ii\overline{\A_0}) \\
+	\pp_2 &= \frac{1}{5} (\A_0\ii\overline{\A_2} + 3\A_1\ii\overline{\A_1} + \A_2 \ii \overline{\A_0}) \\
+	\pp_3 &= \frac{1}{20} (\A_0\ii\overline{\A_3}+9\A_1\ii\overline{\A_2}+9\A_2\ii\overline{\A_1}+\A_3\ii\overline{\A_0}) \\
+	\pp_4&= \frac{1}{5} (\A_1\ii\overline{\A_3}+3\A_2\ii\overline{\A_2}+\A_3\ii\overline{\A_1}) \\
+	\pp_5 &= \frac{1}{2} (\A_2\ii\overline{\A_3}+\A_3\ii\overline{\A_2}) \\
+	\pp_6 &= \A_3 \ii \overline{\A_3}.
+	\end{split}
+	\end{equation*}
+\end{primer}
 Sedaj, ko imamo izračunane kontrolne točke, lahko iz njih izračunamo začetne koeficiente polinoma $\A$. Na primer, lahko si izberemo začetno in končno točko krivulje $\pp(0)$ in $\pp(1)$, od koder določimo kvaterniona $\A_0$ in  $\A_n$, kot je razloženo v nadaljevanju.
 \begin{primer}Poglejmo si primer za	$n=1$. Nastavimo začetno in končno točko in dobimo
-	\begin{equation*}
+	\begin{equation}{\label{enacba}}
 	\begin{split}
 		\A_0\ii\overline{\A_0} &= \pp(0), \\
 		\A_1\ii\overline{\A_1} &= \pp(1).
 	\end{split}
-\end{equation*}
+\end{equation}
 Iz teh dveh enačb lahko izrazimo $\A_0$ in $\A_1$ in dobimo začetni kvaternionski polinom $\A$. Podobno za polinome višjih stopenj, kjer si lahko izberemo začetno in končno točko ter še dodatno točko.	
 \end{primer}
-
+Poglejmo si kakšne so rešitve enačb oblike \ref{enacba}.
 \begin{trditev}
 	Naj bo $\A \in \HH$, $\CC$ čisti ne ničelni kvaternion. Rešitev enačbe 
 	\begin{equation}{\label{aia}}
@@ -496,7 +510,7 @@ Iz teh dveh enačb lahko izrazimo $\A_0$ in $\A_1$ in dobimo začetni kvaternion
 \begin{dokaz}
 	Dokažimo najprej za poseben primer, ko je $\mathcal{U} = 1$.
 	Poračunajmo levo stran enačbe \ref{aia} in pokažimo da je enaka desni.
-	Torej
+	Torej 
 	\begin{equation*}
 				\begin{split}
 				\A \ii \overline{\A} &= \left(\sqrt{||\CC||} \frac{\frac{\CC}{||\CC||} + \ii}{||\frac{\CC}{||\CC||} + \ii||}\right) \ii \left(\overline{\sqrt{||\CC||} \frac{\frac{\CC}{||\CC||} + \ii}{||\frac{\CC}{||\CC||} + \ii||}}\right) \\
@@ -507,6 +521,10 @@ Iz teh dveh enačb lahko izrazimo $\A_0$ in $\A_1$ in dobimo začetni kvaternion
 		&\quad\quad\quad+c_1c_3\kk+c_2c_3-c_3^2\ii+c_3||\CC||\kk+c_1||\CC||\ii+c_2||\CC||\jj+c_3||\CC||\kk+||\CC||^2\ii )\\
 		&=\frac{1}{||\CC||||\frac{\CC}{||\CC||} + \ii||^2}\left((c_1^2-c_2^2-c_3^2+||\CC||^2)\ii + 2c_1c_3\kk+2c_1c_2\jj + ||\CC||(2c_1\ii+2c_2\jj+2c_3\kk)\right)\\
 		&=\frac{1}{||\CC||||\frac{\CC}{||\CC||} + \ii||^2}\left(2c_1(c_1\ii+c_2\jj+c_3\kk) + 2||\CC||(c_1\ii+c_2\jj+c_3\kk)\right)\\
+		\end{split}
+		\end{equation*}
+		\begin{equation*}
+		\begin{split}
 		&=\frac{1}{||\CC||||\frac{\CC}{||\CC||} + \ii||^2}2(c_1+||\CC||)\CC \\
 		&=\frac{||\CC||}{||\CC + ||\CC||\ii||^2}2(c_1+||\CC||)\CC \\
 		&=\frac{||\CC||}{||(c_1 + ||\CC||)\ii+c_2\jj+c_3\kk||^2}2(c_1+||\CC||)\CC \\
@@ -903,7 +921,7 @@ Ko sestavimo vse stvari skupaj, opišemo naš postopek z naslednjim algoritmom.\
 \section{Interpolacijski problem}{\label{int_problem}}
 V tem razdelku bomo opisali interpolacijski problem, ki ga želimo interpolirati.
 Opisali bomo konkreten postopek, kako dobiti P-krivuljo iz začetnih podatkov. 
- Poiskati želimo P-krivuljo, $\pp:\left[0,1\right] \rightarrow \R^3$, po predpisu $\pp(t) = \A(t)\ii\overline{\A(t)}$, kjer je $\A$ nek kvaternionski polinom. Za krivuljo $\pp$ naj velja, da je začetna točka enaka $\pp(0) = P_0$ in končna $\pp(1)=P_1$ in bo njeno rotacijsko minimizirajoče usmerjeno ogrodje pri $t=0$ enako $\left( \e_1^{z},\e_2^{z},\e_3^{z} \right)$, pri $t=1$ pa $\left( \e_1^{k},\e_2^{k},\e_3^{k} \right)$, pri čemer velja $\e_1^{z}= \frac{\pp(0)}{||\pp(0)||}$ in $\e_1^{k}= \frac{\pp(1)}{||\pp(1)||}$. Izkaže se, da če vzamemo linearni kvaternionski polinom $\A(t)$, potem ne moremo konstruirati rotacijsko minimizirajočega usmerjenega ogrodja \ref{}. Zato bomo vzeli kvadraten kvaternionski polinom $\A(t)$.
+ Poiskati želimo P-krivuljo, $\pp:\left[0,1\right] \rightarrow \R^3$, po predpisu $\pp(t) = \A(t)\ii\overline{\A(t)}$, kjer je $\A$ nek kvaternionski polinom. Za krivuljo $\pp$ naj velja, da je začetna točka enaka $\pp(0) = P_0$ in končna $\pp(1)=P_1$ in bo njeno rotacijsko minimizirajoče usmerjeno ogrodje pri $t=0$ enako $\left( \e_1^{z},\e_2^{z},\e_3^{z} \right)$, pri $t=1$ pa $\left( \e_1^{k},\e_2^{k},\e_3^{k} \right)$, pri čemer velja $\e_1^{z}= \frac{\pp(0)}{||\pp(0)||}$ in $\e_1^{k}= \frac{\pp(1)}{||\pp(1)||}$. Izkaže se, da če vzamemo linearni kvaternionski polinom $\A(t)$, potem ne moremo konstruirati rotacijsko minimizirajočega usmerjenega ogrodja \ref{neobstaja}. Zato bomo vzeli kvadraten kvaternionski polinom $\A(t)$.
 
 	Najprej moramo rešiti enačbi, ki nam ju določata robna položaja.
 	Prvi robni pogoj $\pp(0) = P_0$ nam da enačbo $\A_1 \ii \overline{\A_1} = P_0$, katere rešitev je po \ref{kvat_resitev} enaka 
@@ -961,13 +979,17 @@ V tem poglavju si bomo ogledali nekaj numeričnih rezultatov, ki jih bomo dobili
 
 \section*{Slovar strokovnih izrazov}
 
-\geslo{}{}
-\geslo{}{}
+\geslo{adapted frame}{prikrojeno ogrodje}
+\geslo{directed frame}{usmerjeno ogrodje}
+\geslo{polar indicatries}{polarni indikator}
+\geslo{rotation minimizing frame}{rotacijsko minimizirajoče ogrodje}
 
 % seznam uporabljene literature
 \begin{thebibliography}{99}
-
-%\bibitem{}
+\bibitem{}R.T. Farouki, C. Giannelli, A. Sestini: \emph{An interpolation sceme for designing rational rotation-minimizing camera motions}(2011)
+\bibitem{} R.T.Farouki, C.Gianelli: \emph{Spatial camera orientation control by rotation-minimizing directed frames}(2009)
+\bibitem{} M. Krajnc, M.L. Samboli, A. Sestini, E. Žagar: \emph{$C^1$ interpolation by rational biarcs with rational rotation minimizing directed frames} (2014)
+\bibitem{}{\label{neobstaja}} Han, C.Y.: \emph{Nonexistence of rational rotation-minimizing frames on cubic curves}. Comput. AidedGeom. Design25(4–5), 298–304 (2008)
 
 \end{thebibliography}
 
