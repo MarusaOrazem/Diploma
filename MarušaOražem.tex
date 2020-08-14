@@ -6,6 +6,7 @@
 % \documentclass[isrm2]{fmfdelo}
 
 \usepackage{graphicx}
+\allowdisplaybreaks
 
 
 
@@ -237,8 +238,9 @@ Poglejmo si, kako je definirana Bernsteinova baza in kakšno povezavo imajo toč
 \begin{definicija}
 Bernsteinovi bazni polinomi, stopnje $n$, so
 \begin{equation*}
-B_i^n(t) = \binom{n}{i} t^i (1-t)^{n-i}, \quad i=0,1,\dots,n.
+B_i^n(t) = \binom{n}{i} t^i (1-t)^{n-i}, \quad i=0,1,\dots,n,
 \end{equation*}
+kjer je $t\in\left[0,1\right]$.
 \end{definicija}
 \begin{equation*}
 \begin{array}{c c}
@@ -329,6 +331,21 @@ Predno se lotimo dokaza, zapišimo še lemi, ki ju bomo potrebovali v dokazu.
 	\end{equation*}
 	Torej so Bernstenovi bazni polinomi res linearno neodvisni in tvorijo bazo za $\mathbb{P}_n$.
 \end{dokaz}
+Poglejmo si nekaj lastnosti Bernsteinovih polinomov.
+\begin{itemize}
+	\item Bernsteinovi bazni polinomi so nenegativni na intervalu $\left[0,1\right]$.
+	\item Velja:
+	\begin{equation*}
+		\sum_{i=0}^n B_i^n(t) = 1, \quad t\in \R.
+	\end{equation*}
+	\item Bernsteinovi bazni polinomi so simetrični. Torej velja
+	\begin{equation*}
+		B_i^n(t) = B_{n-i}^n(1-t), \quad t\in\R.
+	\end{equation*}
+	\item Prva in zadnja točka določata začetek in konec krivulje, medtem ko umesne točke določajo obliko krivulje.
+\end{itemize}
+Ker si želimo nadzorovati obliko krivulje, bo za nas najpomembnejša zadnja lastnost. Le to prikazujeta sliki \ref{label} in \ref{label}.
+SLIKE
 
 Zapišimo sedaj kvaternionski polinom $\A(t)$ v Bernsteinovi bazi. Dobimo
 \begin{equation*}
@@ -466,13 +483,49 @@ Iz teh dveh enačb lahko izrazimo $\A_0$ in $\A_1$ in dobimo začetni kvaternion
 \end{primer}
 
 \begin{trditev}
-	Naj bo $\A \in \HH$, $\CC$ čisti ne ničelni kvaternion in $\e$ čisti enotski kvaternion. Rešitev enačbe $\A \e \overline{\A} = \CC$ je
-	\begin{equation}{\label{kvat_resitev}}
-		\A = \sqrt{||\CC||} \frac{\frac{\CC}{||\CC||} + \e}{||\frac{\CC}{||\CC||} + \e||}\left(\cos \phi + \ii \sin \phi \right)
+	Naj bo $\A \in \HH$, $\CC$ čisti ne ničelni kvaternion. Rešitev enačbe 
+	\begin{equation}{\label{aia}}
+		\A \ii \overline{\A} = \CC
 	\end{equation}
+	 je
+	\begin{equation}{\label{kvat_resitev}}
+		\A(\phi) = \sqrt{||\CC||} \frac{\frac{\CC}{||\CC||} + \ii}{||\frac{\CC}{||\CC||} + \ii||} \mathcal{U}(\phi),
+	\end{equation}
+	kjer je $\mathcal{U}(\phi) = (\cos\phi + \ii \sin \phi)$ in $\phi$ poljuben kot.
 \end{trditev}
 \begin{dokaz}
-	todo
+	Dokažimo najprej za poseben primer, ko je $\mathcal{U} = 1$.
+	Poračunajmo levo stran enačbe \ref{aia} in pokažimo da je enaka desni.
+	Torej
+	\begin{equation*}
+				\begin{split}
+				\A \ii \overline{\A} &= \left(\sqrt{||\CC||} \frac{\frac{\CC}{||\CC||} + \ii}{||\frac{\CC}{||\CC||} + \ii||}\right) \ii \left(\overline{\sqrt{||\CC||} \frac{\frac{\CC}{||\CC||} + \ii}{||\frac{\CC}{||\CC||} + \ii||}}\right) \\
+		&= \frac{||\CC||}{||\frac{\CC}{||\CC||} + \ii||^2} \left(\frac{c_1 \ii + c_2 \jj + c_3 \kk + \ii ||\CC||}{||\CC||}\right)\ii \left(\frac{-c_1\ii-c_2\jj-c_3\kk-\ii||\CC||}{||\CC||}\right) \\
+		&= \frac{1}{||\CC||||\frac{\CC}{||\CC||} + \ii||^2} \left(-c_1  - c_2 \kk + c_3 \jj -  ||\CC||\right) \left(-c_1\ii-c_2\jj-c_3\kk-\ii||\CC||\right) \\
+		&=\frac{1}{||\CC||||\frac{\CC}{||\CC||} + \ii||^2} ( c_1\ii + c_2\jj + c_3\kk + c_1||\CC||\ii
+		+c_1c_2\jj-c_2^2\ii-c_2c_3+c_2||\CC||\jj+\\
+		&\quad\quad\quad+c_1c_3\kk+c_2c_3-c_3^2\ii+c_3||\CC||\kk+c_1||\CC||\ii+c_2||\CC||\jj+c_3||\CC||\kk+||\CC||^2\ii )\\
+		&=\frac{1}{||\CC||||\frac{\CC}{||\CC||} + \ii||^2}\left((c_1^2-c_2^2-c_3^2+||\CC||^2)\ii + 2c_1c_3\kk+2c_1c_2\jj + ||\CC||(2c_1\ii+2c_2\jj+2c_3\kk)\right)\\
+		&=\frac{1}{||\CC||||\frac{\CC}{||\CC||} + \ii||^2}\left(2c_1(c_1\ii+c_2\jj+c_3\kk) + 2||\CC||(c_1\ii+c_2\jj+c_3\kk)\right)\\
+		&=\frac{1}{||\CC||||\frac{\CC}{||\CC||} + \ii||^2}2(c_1+||\CC||)\CC \\
+		&=\frac{||\CC||}{||\CC + ||\CC||\ii||^2}2(c_1+||\CC||)\CC \\
+		&=\frac{||\CC||}{||(c_1 + ||\CC||)\ii+c_2\jj+c_3\kk||^2}2(c_1+||\CC||)\CC \\
+		&=\frac{2||\CC||c_1+2||\CC||^2}{(c_1+||\CC||)^2+c_2^2+c_3^2}\CC \\
+		&=\frac{2||\CC||c_1+2||\CC||^2}{c_1^2+2c_1||\CC|| + ||\CC||^2+c_2^2+c_3^2}\CC \\
+		&=\CC
+				\end{split}.
+	\end{equation*}
+	Sedaj pa preverimo, da je rešitev tudi $\A = \sqrt{||\CC||} \frac{\frac{\CC}{||\CC||} + \ii}{||\frac{\CC}{||\CC||} + \ii||}\left(\cos \phi + \ii \sin \phi \right)$ za vsak $\phi$.	Če za poljuben kvaternionski polinom velja $\mathcal{U} \ii \overline{\mathcal{U}} = \ii$ in je $\A$ rešitev
+	\ref{aia}, potem tudi $\A \mathcal{U}$ reši \ref{aia}. Preverimo, da je $\mathcal{U}(\phi)$ res take oblike. Dobimo
+	\begin{equation*}
+	\begin{split}
+		\mathcal{U}\ii\overline{\mathcal{U}} &= (\cos\phi + \ii\sin\phi) \ii (\cos\phi-\ii\sin\phi) \\
+		&=(\cos\phi \ii - \sin\phi)(\cos\phi-\ii\sin\phi) \\
+		&= \cos^2\phi \ii +\cos\phi\sin\phi - \cos\phi\sin\phi +\ii\sin^2\phi\\
+		&= \ii
+	\end{split}
+	\end{equation*}
+	in zato trditev velja.
 \end{dokaz}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ogrodja}
@@ -681,7 +734,7 @@ Od tod sledi
 \end{equation*}
 kar zaključuje dokaz.
 \end{dokaz}
-\begin{opomba}
+\begin{opomba}{\label{aq}}
 V splošnem to ogrodje ne bo rotacijsko minimizirajoče, če poljubeno izberemo kvaternionski polinom $\A$. Iz $\A$ lahko izpeljemo novo ogrodje, ki bo tudi usmerjen in bo rotacijsko minimizirajoče. Definiramo nov kvaternionski polinom $\B$ s predpisom: $\B(t) = \A(t) \QQ(t)$, kjer je $\QQ$ tak kvaternionski polinom, da velja $\QQ(t) \ii \overline{\QQ(t)} = \left( \QQ(t) \overline{\QQ(t)} \right) \ii$. Tako dobimo:
 \begin{equation*}
 	\B \ii \overline{\B} = \A \QQ \ii \overline{\QQ} \overline{\A} = \A \QQ \overline{\QQ} \ii \overline{\A} = ||\QQ||^2\A\ii\overline{\A}.
@@ -848,7 +901,9 @@ Ko sestavimo vse stvari skupaj, opišemo naš postopek z naslednjim algoritmom.\
 \fi
 
 \section{Interpolacijski problem}{\label{int_problem}}
-V tem razdelku bomo opisali interpolacijski problem, ki ga želimo interpolirati. Poiskati želimo P-krivuljo, stopnje 4, $\pp:\left[0,1\right] \rightarrow \R^3$, za katero velja, da je začetna točka enaka $\pp(0) = P_0$ in končna $\pp(1)=P_1$ in bo njeno usmerjeno ER ogrodje pri $t=0$ enako $\left( \e_1^{P_0},\e_2^{P_0},\e_3^{P_0} \right)$, pri $t=1$ pa $\left( \e_1^{P_1},\e_2^{P_1},\e_3^{P_1} \right)$, pri čemer velja $\e_1^{p_0}= \frac{\pp(0)}{||\pp(0)||}$ in $\e_1^{p_1}= \frac{\pp(1)}{||\pp(1)||}$.
+V tem razdelku bomo opisali interpolacijski problem, ki ga želimo interpolirati.
+Opisali bomo konkreten postopek, kako dobiti P-krivuljo iz začetnih podatkov. 
+ Poiskati želimo P-krivuljo, $\pp:\left[0,1\right] \rightarrow \R^3$, po predpisu $\pp(t) = \A(t)\ii\overline{\A(t)}$, kjer je $\A$ nek kvaternionski polinom. Za krivuljo $\pp$ naj velja, da je začetna točka enaka $\pp(0) = P_0$ in končna $\pp(1)=P_1$ in bo njeno rotacijsko minimizirajoče usmerjeno ogrodje pri $t=0$ enako $\left( \e_1^{z},\e_2^{z},\e_3^{z} \right)$, pri $t=1$ pa $\left( \e_1^{k},\e_2^{k},\e_3^{k} \right)$, pri čemer velja $\e_1^{z}= \frac{\pp(0)}{||\pp(0)||}$ in $\e_1^{k}= \frac{\pp(1)}{||\pp(1)||}$. Izkaže se, da če vzamemo linearni kvaternionski polinom $\A(t)$, potem ne moremo konstruirati rotacijsko minimizirajočega usmerjenega ogrodja \ref{}. Zato bomo vzeli kvadraten kvaternionski polinom $\A(t)$.
 
 	Najprej moramo rešiti enačbi, ki nam ju določata robna položaja.
 	Prvi robni pogoj $\pp(0) = P_0$ nam da enačbo $\A_1 \ii \overline{\A_1} = P_0$, katere rešitev je po \ref{kvat_resitev} enaka 
@@ -865,30 +920,43 @@ V tem razdelku bomo opisali interpolacijski problem, ki ga želimo interpolirati
 
 	Zadostiti moramo pogoju za rotacijsko minimizirajoče ogrodje \ref{rot_min}.
 	\begin{trditev} Naj bo $\A(t) = \A_0(1-t)^2 + \A_12(1-t)t+\A_2t^2$.
-		Ogrodje, definirano kot
+		Za krivuljo, definirano kot
 		\begin{equation*}
-			\e_1 = \frac{\A \ii \overline{\A}}{||\A||},\quad \e_2= \frac{\A \jj \overline{\A}}{||\A||}, \quad \e_3 = \frac{\A \kk \overline{\A}}{||\A||}
+			\pp(t) = \A(t)\ii\overline{\A(t)}
 		\end{equation*}
-		bo rotacijsko minimizirajoče natanko tedaj, ko bo
+		obstaja rotacijsko minimizirajoče usmerjeno ogrodje natanko tedaj, ko bo
 		\begin{equation}{\label{rot_pogoj}}
 			\A_1 \ii \overline{\A_1} = {\rm vect} \left(\A_2 \ii \overline{\A_0}\right).
 		\end{equation}
 	\end{trditev}
 \begin{dokaz}
-	todo
+	Dokaz trditve je zelo zahteven in obsežen, zato ga izpustimo. Najdemo ga lahko v \ref{label}. Oglejmo si le, kako pridemo do iskanega rotacijsko minimizirajočega ogrodja. Kot smo že omenili v opombi \ref{aq}, za dan kvaternionski polinom $\A$, obstaja ER ogrodje, definiramo kot
+	\begin{equation*}
+		\e_1 = \frac{\B \ii \overline{\B}}{||\B||}, \quad \e_2 = \frac{\B \jj \overline{\B}}{||\B||}, \quad		\e_3 = \frac{\B \kk \overline{\B}}{||\B||},
+	\end{equation*}
+	kjer je $\B = \A \QQ$ in za $\QQ$ velja $\QQ\ii\overline{\QQ}= ||\QQ||\ii$.
+	V \ref{} izvemo, da je $\QQ$ definiran kot $\QQ(t)= q_0-\ii q_1$, kjer sta $q_0$ in $q_1$ definirana kot
+	\begin{equation}
+		\begin{split}
+		q_0(t) &= ||\A_0||^2(1-t)^2+{\rm scal} (\overline{\A_0}\A_1) 2t(1-t)+||\A_1||^2t^2, \\
+		q_1(t) &=\langle \overline{\A_0} (\A_12t(1-t)+\A_2t^2)),(0,1,0,0) \rangle.
+		\end{split}
+	\end{equation}
 \end{dokaz}
 Iz enačbe \ref{rot_pogoj} poračunamo še koeficient $\A_1$. Po \ref{kvat_resitev} je ta enaka
 \begin{equation}
 	\A_1(\phi_2) = \sqrt{||b||} \frac{\frac{b}{||b||}+ \ii}{||\frac{b}{||b||}+ \ii||} \left(\cos \phi_1 + \sin \phi_1\right),
 \end{equation}
 kjer je $\phi_1$ poljuben kot in $b = {\rm vect} \left(\A_2 \ii \overline{\A_0}\right)$.
-Nazadnje je treba upoštevati še drugedva vektorja, ki definirata ogrodje v začetni točki. 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 \section{Numerični rezultati}
-V tem poglavju si bomo ogledali nekaj numeričnih rezultatov, ki jih bomo dobili tako, da predpišemo začetni in končni položaj kamere in sledimo postopku opisanem v poglavju \ref{int_problem}.
+V tem poglavju si bomo ogledali nekaj numeričnih rezultatov, ki jih bomo dobili tako, da predpišemo začetni in končni položaj kamere in sledimo postopku opisanem v poglavju \ref{int_problem}. Če interpoliramo podatke, opisane v poglavju \ref{label}, potem dobimo tri proste parametre $\phi_0,\phi_1,\phi_2$, ki nam bodo določali končno krivuljo. 
+
+\subsection{Primer 1}
+\subsection{Primer 2}
 
 
 \section*{Slovar strokovnih izrazov}
